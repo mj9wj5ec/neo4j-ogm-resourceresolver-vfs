@@ -2,6 +2,7 @@ package com.ctp.neo4j.ogm.resourceresolver;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,6 +29,23 @@ public class VfsResourceResolverTest {
         assertNotNull(file);
         String content = IOUtils.toString(new FileInputStream(file));
         assertEquals("All work and no play makes Jack a dull boy", content);
+    }
+
+    @Test
+    public void should_load_folder_files_vfs() throws Exception {
+        // given
+        VirtualFile testFolder = VFS.getChild(classpathURI("vfs/content"));
+        assertEquals("This should be a VFS file", "vfs", testFolder.toURL().getProtocol());
+
+        // when
+        File folder = ResourceService.resolve(testFolder.toURL());
+        File[] subFiles = folder.listFiles();
+
+        // then
+        assertNotNull(folder);
+        assertTrue( folder.isDirectory() );
+        assertNotNull( subFiles );
+        assertTrue( subFiles.length == 1 );
     }
 
     private URI classpathURI(String resource) throws Exception {
