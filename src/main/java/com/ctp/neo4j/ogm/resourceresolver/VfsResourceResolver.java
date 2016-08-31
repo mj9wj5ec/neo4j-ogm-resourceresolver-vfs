@@ -12,8 +12,11 @@ public class VfsResourceResolver implements ResourceResolver {
     @Override
     public File resolve(URL url) throws Exception {
         if ("vfs".equalsIgnoreCase(url.getProtocol())) {
-            VirtualFile file = VFS.getChild(url.toURI());
-            return file.getPhysicalFile();
+            VirtualFile folder = VFS.getChild(url.toURI());
+            for (VirtualFile child : folder.getChildrenRecursively()) {
+                child.getPhysicalFile();
+            }
+            return folder.getPhysicalFile();
         }
         return null;
     }
