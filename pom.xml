@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.graphgrid.parent</groupId>
         <artifactId>graphgrid-parent</artifactId>
-        <version>1.0.0.b1-SNAPSHOT</version>
+        <version>1.0.0.BUILD-SNAPSHOT</version>
         <relativePath>../graphgrid-build/graphgrid-parent</relativePath>
     </parent>
 
